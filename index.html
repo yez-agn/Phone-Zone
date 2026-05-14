@@ -1,0 +1,550 @@
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Zone | Smartphones Premium</title>
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+    :root{
+      --bg:#050505;
+      --card:#0d0d0d;
+      --border:rgba(255,255,255,0.06);
+      --text:#ffffff;
+      --gray:#b5b5b5;
+      --green:#25D366;
+    }
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+    }
+    img{
+      width:100%;
+      display:block;
+    }
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+    /* ========================= */
+    /* BACKGROUND GLOW */
+    /* ========================= */
+    .bg-glow{
+      position:fixed;
+      width:500px;
+      height:500px;
+      background:var(--green);
+      filter:blur(200px);
+      opacity:0.10;
+      top:-120px;
+      right:-120px;
+      z-index:-1;
+    }
+    /* ========================= */
+    /* NAVBAR */
+    /* ========================= */
+    .navbar{
+      width:100%;
+      padding:22px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      backdrop-filter:blur(12px);
+      background:rgba(5,5,5,0.72);
+      border-bottom:1px solid var(--border);
+    }
+    .logo{
+      font-size:1.8rem;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+    .logo span{
+      color:var(--green);
+    }
+    .nav-btn{
+      background:var(--green);
+      color:black;
+      padding:13px 24px;
+      border-radius:50px;
+      font-weight:800;
+      transition:0.3s;
+    }
+    .nav-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 30px rgba(37,211,102,0.2);
+    }
+    /* ========================= */
+    /* HERO */
+    /* ========================= */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:60px;
+      padding:0 8%;
+    }
+    .hero-image{
+      width:420px;
+      max-width:100%;
+      height:auto;
+      object-fit:cover;
+      border-radius:30px;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    }
+    .hero-content{
+      max-width:780px;
+    }
+    .mini-title{
+      color:var(--green);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      margin-bottom:20px;
+      font-size:0.9rem;
+      font-weight:700;
+    }
+    .hero h1{
+      font-size:5rem;
+      line-height:1;
+      margin-bottom:28px;
+      font-weight:900;
+    }
+    .hero p{
+      color:var(--gray);
+      font-size:1.1rem;
+      line-height:1.8;
+      max-width:650px;
+      margin-bottom:42px;
+    }
+    .hero-buttons{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .primary-btn,
+    .secondary-btn{
+      padding:16px 30px;
+      border-radius:50px;
+      font-weight:700;
+      transition:0.3s;
+    }
+    .primary-btn{
+      background:white;
+      color:black;
+    }
+    .secondary-btn{
+      border:1px solid rgba(255,255,255,0.12);
+      color:white;
+    }
+    .primary-btn:hover,
+    .secondary-btn:hover{
+      transform:translateY(-3px);
+    }
+    /* ========================= */
+    /* SEARCH */
+    /* ========================= */
+    .search-box{
+      padding:0 8% 25px;
+    }
+    .search-box input{
+      width:100%;
+      background:#101010;
+      border:1px solid var(--border);
+      padding:18px 22px;
+      border-radius:18px;
+      color:white;
+      font-size:1rem;
+      outline:none;
+    }
+    .search-box input::placeholder{
+      color:#7d7d7d;
+    }
+    /* ========================= */
+    /* FILTERS */
+    /* ========================= */
+    .filters{
+      padding:0 8% 40px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .filter-btn{
+      border:none;
+      background:#111111;
+      color:white;
+      padding:14px 24px;
+      border-radius:50px;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:0.95rem;
+    }
+    .filter-btn:hover{
+      background:#1b1b1b;
+    }
+    .filter-btn.active{
+      background:var(--green);
+      color:black;
+      font-weight:800;
+    }
+    /* ========================= */
+    /* PRODUCTS */
+    /* ========================= */
+    .products{
+      padding:0 8% 100px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      overflow:hidden;
+      transition:0.35s;
+      position:relative;
+    }
+    .card:hover{
+      transform:translateY(-10px);
+      border-color:rgba(255,255,255,0.14);
+      box-shadow:0 20px 40px rgba(0,0,0,0.35);
+    }
+    .badge{
+      position:absolute;
+      top:18px;
+      left:18px;
+      background:var(--green);
+      color:black;
+      padding:8px 14px;
+      border-radius:50px;
+      font-size:0.78rem;
+      font-weight:800;
+      z-index:2;
+    }
+    .card-image{
+      height:320px;
+      object-fit:cover;
+      background:#161616;
+    }
+    .card-content{
+      padding:24px;
+    }
+    .brand{
+      color:var(--green);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:0.82rem;
+      margin-bottom:12px;
+      font-weight:700;
+    }
+    .title{
+      font-size:1.4rem;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .storage{
+      color:var(--gray);
+      margin-bottom:18px;
+    }
+    .price{
+      font-size:1.7rem;
+      font-weight:900;
+      margin-bottom:24px;
+    }
+    .buy-btn{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:var(--green);
+      color:black;
+      padding:16px;
+      border-radius:16px;
+      font-weight:800;
+      transition:0.3s;
+    }
+    .buy-btn:hover{
+      transform:scale(1.02);
+    }
+    /* ========================= */
+    /* FOOTER */
+    /* ========================= */
+    footer{
+      border-top:1px solid var(--border);
+      padding:70px 8%;
+    }
+    footer h2{
+      font-size:2rem;
+      margin-bottom:18px;
+    }
+    footer p{
+      color:var(--gray);
+      max-width:550px;
+      line-height:1.8;
+      margin-bottom:25px;
+    }
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .footer-links a{
+      color:white;
+    }
+    /* ========================= */
+    /* RESPONSIVE */
+    /* ========================= */
+    @media(max-width:900px){
+      .hero{
+        flex-direction:column;
+        justify-content:center;
+      }
+      .hero-image{
+        width:100%;
+        max-width:420px;
+      }
+    }
+    @media(max-width:768px){
+      .navbar{
+        padding:18px 6%;
+      }
+      .hero{
+        padding:120px 6% 90px;
+        min-height:auto;
+      }
+      .hero h1{
+        font-size:3rem;
+      }
+      .hero p{
+        font-size:1rem;
+      }
+      .search-box,
+      .filters,
+      .products,
+      footer{
+        padding-left:6%;
+        padding-right:6%;
+      }
+      .products{
+        padding-bottom:80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <!-- ========================= -->
+  <!-- NAVBAR -->
+  <!-- ========================= -->
+  <nav class="navbar">
+    <div class="logo">
+      PHONE<span>ZONE</span>
+    </div>
+    <a
+      href="https://wa.me/2290196484529"
+      target="_blank"
+      class="nav-btn"
+    >
+      WhatsApp
+    </a>
+  </nav>
+  <!-- ========================= -->
+  <!-- HERO -->
+  <!-- ========================= -->
+  <section class="hero">
+    <img src="images/phonezone.webp" alt="Phone Zone" class="hero-image">
+    <div class="hero-content">
+      <div class="mini-title">
+        Boutique Smartphone Premium
+      </div>
+      <h1>
+        L’univers du smartphone<br>
+        haut de gamme.
+      </h1>
+      <p>
+        Découvrez les derniers iPhone, Samsung Galaxy et Google Pixel.
+        Des performances puissantes, un design premium et des prix accessibles.
+      </p>
+      <div class="hero-buttons">
+        <a href="#products" class="primary-btn">
+          Explorer les modèles
+        </a>
+        <a
+          href="https://wa.me/2290196484529"
+          target="_blank"
+          class="secondary-btn"
+        >
+          Contacter la boutique
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ========================= -->
+  <!-- SEARCH -->
+  <!-- ========================= -->
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="🔍 Rechercher un téléphone..."
+    >
+  </div>
+  <!-- ========================= -->
+  <!-- FILTERS -->
+  <!-- ========================= -->
+  <section class="filters">
+    <button class="filter-btn active" data-filter="all">
+      Tous
+    </button>
+    <button class="filter-btn" data-filter="iphone">
+      iPhone
+    </button>
+    <button class="filter-btn" data-filter="samsung">
+      Samsung
+    </button>
+    <button class="filter-btn" data-filter="pixel">
+      Google Pixel
+    </button>
+  </section>
+  <!-- ========================= -->
+  <!-- PRODUCTS -->
+  <!-- ========================= -->
+  <section class="products" id="products"></section>
+  <!-- ========================= -->
+  <!-- FOOTER -->
+  <!-- ========================= -->
+  <footer>
+    <h2>PHONE ZONE</h2>
+    <p>
+      Smartphones premium • Vente sécurisée • Livraison rapide •
+      iPhone • Samsung Galaxy • Google Pixel
+    </p>
+    <div class="footer-links">
+      <a href="mailto:yezidagnide@gmail.com">
+        yezidagnide@gmail.com
+      </a>
+      <a href="https://wa.me/2290196484529" target="_blank">
+        WhatsApp : +229 01 96 48 45 29
+      </a>
+    </div>
+  </footer>
+  <!-- ========================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================= -->
+  <script>
+const phones = [
+  // ================== IPHONE ==================
+  { brand: "iphone", model: "iPhone 6s plus", storage: "64GB-128GB", price: "30 000 FCFA", image: "images/iphone6.jpg" },
+  { brand: "iphone", model: "iPhone X", storage: "64GB-128GB", price: "30 000 FCFA", image: "images/iphonex.jpg" },
+  { brand: "iphone", model: "iPhone Xr", storage: "64GB-128GB", price: "55 000 FCFA", image: "images/iphonexr.jpg" },
+  { brand: "iphone", model: "iPhone Xsmax", storage: "64GB-128GB", price: "60 000 FCFA", image: "images/iphonexsmax.jpg" },
+  { brand: "iphone", model: "iPhone 11", storage: "64GB-256GB", price: "80 000 FCFA", image: "images/iphone11(1).jpg" },
+  { brand: "iphone", model: "iPhone 11pro max", storage: "64GB-256GB", price: "135 000 FCFA", image: "images/iphone11(2).jpg" },
+  { brand: "iphone", model: "iPhone 12", storage: "64GB-128GB", price: "130 000 FCFA", image: "images/iphone12(1).jpg" },
+  { brand: "iphone", model: "iPhone 12 Pro Max", storage: "128GB", price: "150 000 FCFA", image: "images/iphone12(2).jpg" },
+  { brand: "iphone", model: "iPhone 13", storage: "128GB", price: "180 000 FCFA", image: "images/iphone13(1).jpg" },
+  { brand: "iphone", model: "iPhone 13 Pro Max", storage: "128GB", price: "220 000 FCFA", image: "images/iphone13(2).jpg" },
+  { brand: "iphone", model: "iPhone 14", storage: "128GB", price: "195 000 FCFA", image: "images/iphone14(1).jpg" },
+  { brand: "iphone", model: "iPhone 14 Pro Max", storage: "128", price: "265 000 FCFA", image: "images/iphone14(2).jpg" },
+  { brand: "iphone", model: "iPhone 15", storage: "128GB", price: "290 000 FCFA", image: "images/iphone15(1).jpg" },
+  { brand: "iphone", model: "iPhone 15 Pro Max", storage: "256GB", price: "340 000", image: "images/iphone15(2).jpg" },
+  { brand: "iphone", model: "iPhone 16", storage: "128GB", price: "360 000 FCFA", image: "images/iphone16(1).jpg" },
+  { brand: "iphone", model: "iPhone 16 Pro Max", storage: "256GB", price: "1 150 000 FCFA", image: "images/iphone16(2).jpg" },
+  { brand: "iphone", model: "iPhone 17 Pro Max", storage: "256GB", price: "1 250 000 FCFA", image: "images/iphone17.jpg" },
+  // ================== SAMSUNG GALAXY S ==================
+  { brand: "samsung", model: "Galaxy S7", storage: "128GB", price: "50 000 FCFA", image: "images/s(7).jpg" },
+  { brand: "samsung", model: "Galaxy S8", storage: "128GB", price: "55 000 FCFA", image: "images/s(8).jpg" },
+  { brand: "samsung", model: "Galaxy S9", storage: "128GB", price: "63 000 FCFA", image: "images/s(9).jpg" },
+  { brand: "samsung", model: "Galaxy S10plus", storage: "128GB", price: "122 000 FCFA", image: "images/s(10).jpg" },
+  { brand: "samsung", model: "Galaxy S21 Ultra", storage: "256GB", price: "180 000 FCFA", image: "images/s(21).jpg" },
+  { brand: "samsung", model: "Galaxy S22 Ultra", storage: "512GB", price: "200 000 FCFA", image: "images/s(22).jpg" },
+  { brand: "samsung", model: "Galaxy S23", storage: "256GB", price: "210 000 FCFA", image: "images/s(23).jpg" },
+  // ================== SAMSUNG GALAXY A ==================
+  { brand: "samsung", model: "Galaxy A05", storage: "64GB-128GB", price: "49 000 FCFA", image: "images/a(5).jpg" },
+  { brand: "samsung", model: "Galaxy A06", storage: "64GB-128GB", price: "57 000 FCFA", image: "images/a(6)-128.jpg" },
+  { brand: "samsung", model: "Galaxy A07", storage: "64GB-128GB", price: "61 000 FCFA", image: "images/a(7).jpg" },
+  { brand: "samsung", model: "Galaxy A13", storage: "64GB-128GB", price: "64 000 FCFA", image: "images/a(13).jpg" },
+  { brand: "samsung", model: "Galaxy A14", storage: "64GB-128GB", price: "66 000 FCFA", image: "images/a(14).jpg" },
+  { brand: "samsung", model: "Galaxy A15", storage: "64GB-128GB", price: "68 000 FCFA", image: "images/a(15).jpg" },
+  { brand: "samsung", model: "Galaxy A16", storage: "64-GB-256GB", price: "76 000 FCFA", image: "images/a(16).jpg" },
+  { brand: "samsung", model: "Galaxy A17", storage: "64GB128GB", price: "86 000 FCFA", image: "images/a(17).jpg" },
+  { brand: "samsung", model: "Galaxy A25", storage: "256GB", price: "100 000 FCFA", image: "images/a(25).jpg" },
+  { brand: "samsung", model: "Galaxy A34", storage: "128GB", price: "210 000 FCFA", image: "images/a(34).jpg" },
+  // ================== GOOGLE PIXEL ==================
+  { brand: "pixel", model: "Google Pixel 4XL", storage: "128GB", price: "105 000 FCFA", image: "images/pixel4XL.jpg" },
+  { brand: "pixel", model: "Google Pixel 6A", storage: "128GB", price: "128 000 FCFA", image: "images/pixel6A.jpg" },
+  { brand: "pixel", model: "Google Pixel 6", storage: "128GB-256GB", price: "142 000 FCFA", image: "images/pixel6.jpg" },
+
+  { brand: "pixel", model: "Google Pixel 7 Pro", storage: "256GB", price: "187 000 FCFA", image: "images/pixel7pro.jpg" },
+  { brand: "pixel", model: "Google Pixel 8", storage: "128GB", price: "240 000 FCFA", image: "images/pixel8(1).jpg" },
+  { brand: "pixel", model: "Google Pixel 8 Pro", storage: "512GB", price: "252 000 FCFA", image: "images/pixel8(2).jpg" },
+  { brand: "pixel", model: "Google Pixel 9", storage: "256GB", price: "427 000 FCFA", image: "images/pixel9(1).jpg" },
+  { brand: "pixel", model: "Google Pixel 9 Pro XL", storage: "512GB", price: "437 000 FCFA", image: "images/pixel9(2).jpg" },
+  { brand: "pixel", model: "Google Pixel 10 Pro XL", storage: "1TB", price: "660 000 FCFA", image: "images/pixel10proxl-1tb.jpg" }
+];
+// ================== JS FONCTIONNEL ==================
+const productsContainer = document.querySelector('.products');
+const searchInput = document.getElementById('searchInput');
+const filterButtons = document.querySelectorAll('.filter-btn');
+let currentFilter = 'all';
+function displayPhones(items){
+  productsContainer.innerHTML = '';
+  if(items.length === 0){
+    productsContainer.innerHTML = `<p style="color:#b5b5b5;font-size:1.1rem;">Aucun téléphone trouvé.</p>`;
+    return;
+  }
+  items.forEach(phone => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const whatsappMessage = `Bonjour Phone Zone, je veux commander le ${phone.model} ${phone.storage}.`;
+    card.innerHTML = `
+      <div class="badge"> Disponible </div>
+      <img src="${phone.image}" alt="${phone.model}" class="card-image" onerror="this.src='https://placehold.co/600x600/0d0d0d/25D366?text=${encodeURIComponent(phone.model)}'">
+      <div class="card-content">
+        <div class="brand">${phone.brand}</div>
+        <div class="title">${phone.model}</div>
+        <div class="storage">Capacité : ${phone.storage}</div>
+        <div class="price">${phone.price}</div>
+        <a href="https://wa.me/2290196484529?text=${encodeURIComponent(whatsappMessage)}" target="_blank" class="buy-btn">Commander maintenant</a>
+      </div>
+    `;
+    productsContainer.appendChild(card);
+  });
+}
+function filterPhones(){
+  const searchValue = searchInput.value.toLowerCase();
+  let filtered = phones;
+  if(currentFilter !== 'all'){
+    filtered = filtered.filter(phone => phone.brand === currentFilter);
+  }
+  filtered = filtered.filter(phone => phone.model.toLowerCase().includes(searchValue) || phone.storage.toLowerCase().includes(searchValue));
+  displayPhones(filtered);
+}
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelector('.filter-btn.active').classList.remove('active');
+    button.classList.add('active');
+    currentFilter = button.dataset.filter;
+    filterPhones();
+  });
+});
+searchInput.addEventListener('input', filterPhones);
+displayPhones(phones);
+</script>
+</body>
+</html>
